@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container>  
        <div id="app">
     <v-app id="inspire">
       <v-card class="overflow-hidden" color="gray">
@@ -10,8 +10,8 @@
           </v-toolbar-title>
           <v-spacer></v-spacer>
         </v-toolbar>
-        <v-card-text>
-          <v-text-field color="white" label="Name" v-model="name">
+        <v-card-text min-width="550px"> 
+          <v-text-field color="white" label="Name" v-model="name" >
           </v-text-field>
           <v-text-field color="white" label="password" v-model="password">
           </v-text-field>
@@ -35,5 +35,16 @@ export default {
     components: {
         // LoginForum,
     }
+    
 }
 </script>
+<style>
+.v-application--wrap {
+    min-height: 100vh;
+    position: relative;
+    max-width: 60vw;
+    margin-left: 10vw;
+    min-width: 400px;
+}
+    
+</style>
