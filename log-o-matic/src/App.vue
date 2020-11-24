@@ -23,20 +23,20 @@
     </v-app-bar>
 
     <v-main>
-      <Welcometext/>
+      <WelcomeText/>
     </v-main>
   </v-app>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import Welcometext from './components/WelcomeText.vue';
+import WelcomeText from './components/WelcomeText.vue';
 
 export default Vue.extend({
   name: 'App',
 
   components: {
-    Welcometext,
+    WelcomeText,
   },
 
   data: () => ({
