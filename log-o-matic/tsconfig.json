@@ -9,7 +9,6 @@
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": false,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
