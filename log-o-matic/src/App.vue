@@ -12,35 +12,36 @@
 
       <v-spacer></v-spacer>
 
+      <router-link to="Login">
       <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
       >
         <v-icon>mdi-lock-open</v-icon>
         <span class="display-0 mr-2 col-1" >Sign in</span>
       </v-btn>
+      </router-link>
     </v-app-bar>
 
     <v-main>
-      <WelcomeText/>
+      <router-view />
     </v-main>
   </v-app>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import WelcomeText from './components/WelcomeText.vue';
+
 
 export default Vue.extend({
   name: 'App',
-
-  components: {
-    WelcomeText,
-  },
-
   data: () => ({
     //
   }),
 });
 </script>
+
+<style scoped>
+  a {
+    text-decoration: none;
+  }
+  
+</style>
