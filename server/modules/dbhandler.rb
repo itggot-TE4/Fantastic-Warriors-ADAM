@@ -37,20 +37,29 @@ class DBhandler
     end
 
     def self.insert(table, columns, values) 
+
+        if columns.is_a? Array
+            columns = "'#{columns.join("', '")}'"
+        end
+
+        if values.is_a? Array
+            values = "'#{values.join("', '")}'"
+        end
+
         connect
 
         @db.execute("INSERT INTO #{table} (#{columns}) VALUES (#{values})")
     end
 
-    def self.get_last(table, columns)
+    def self.get_last(table, columns, where)
 
         connect
 
-        self.get("ORDER BY ID DESC LIMIT 1", table, columns)
+        self.get(table, columns, "#{where} ORDER BY ID DESC LIMIT 1")
 
     end
 
-    def self.get(table,columns)
+    def self.get(table,columns, where="")
 
         connect
 
