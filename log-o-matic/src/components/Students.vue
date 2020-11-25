@@ -18,6 +18,7 @@
     
         <template v-slot:item.teacher="{ item }">  
          <v-select 
+                @input="log"
                 :items="teachers"
                 v-bind:value="item.teacher"> 
             </v-select>
@@ -93,7 +94,9 @@
       },
     },
     methods: {
-      
+      log (teacher) {
+        console.log(teacher)
+      }
     },
   }
 </script>
