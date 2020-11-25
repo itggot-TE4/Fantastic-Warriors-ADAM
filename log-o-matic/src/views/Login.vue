@@ -41,5 +41,4 @@ export default {
   max-width: 70%;
   margin: 0 auto;
 }
-
 </style>

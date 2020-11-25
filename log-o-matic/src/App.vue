@@ -7,6 +7,14 @@
 
       <v-spacer></v-spacer>
 
+    <router-link to="Admin">
+      <v-btn
+      >
+        <v-icon>mdi-cog</v-icon>
+        <span class="display-0 mr-2 col-1" >Admin</span>
+      </v-btn>
+      </router-link>
+
       <router-link to="Login">
         <v-btn elevation="0">
           <v-icon>mdi-lock-open</v-icon>
