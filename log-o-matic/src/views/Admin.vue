@@ -60,28 +60,9 @@
       return {
         // name: '',
         // email: '',
-        // password: '',
-        teachers: [
-          {
-            name: 'Daniel',
-            email: 'daniel.berg@ga.ntig.se',
-            password: '',
-
-            
-            
-          },
-          {
-            name: 'Linus',
-            email: 'linus.styren@ga.ntig.se',
-            password: ""
-          },
-          {
-            name: ''
-          },
-          {
-            name: ''
-          },
-        ],
+        // password: ''
+        teachers: this.$store.state.teachers
+        ,
       }
     },
     computed: {
