@@ -1,21 +1,27 @@
 <template>
-  <v-container>
-    <div>
+     <v-card>
+
         <v-data-table
         hide-default-footer
         :headers="headers"
-        :items="teachers"
+        :items="students"
         item-key="name"
         class="elevation-1">
     
         <template v-slot:top>
             <v-col class="">
             <h1 class="display-1 font-weight-bold">
-            Teachers
+            Students
             </h1>
             </v-col>
         </template>
-
+    
+        <template v-slot:item.teacher="{ item }">  
+         <v-select 
+                :items="teachers"
+                v-bind:value="item.teacher"> 
+            </v-select>
+        </template>
 
         <template v-slot:[`item.password`]="{ item }">
             <v-row>
@@ -30,11 +36,12 @@
         </v-data-table>
         
         <v-card>
-        <v-card-subtitle>Add New Teacher</v-card-subtitle>
+        <v-card-subtitle>Add New Student</v-card-subtitle>
                 <v-row class="ma-1">
                     <v-text-field label="Email"></v-text-field>
                     <v-text-field label="Name"></v-text-field>
                     <v-text-field label="Password"></v-text-field>
+                    <v-text-field label="Teacher"></v-text-field>
                 </v-row>
                 <v-row>
                     <v-spacer></v-spacer>
@@ -45,34 +52,33 @@
                     >CREATE</v-btn>
                 </v-row>
         </v-card>     
-    </div>
-     <v-divider color="black"></v-divider>
-  <Students/>
-  </v-container>
+    </v-card>
 </template>
 
 <script lang="ts">
-
-    import Students from '@/components/Students.vue';
-
   export default {
-    data () {
+      name: 'Students',
+    data: function () {
       return {
         // name: '',
         // email: '',
         // password: '',
-        teachers: [
+       teachers: [ 'Daniel', 'Fredrik', 'Linus', 'Johan'],
+
+       students: [
           {
-            name: 'Daniel',
-            email: 'daniel.berg@ga.ntig.se',
-            password: '',
+            name: 'Dimitri',
+            email: 'dimitri.vegas@ga.ntig.se',
+            test: ['hej', 'abs'],
+            teacher: 'Daniel',
+            password: ''
 
             
             
           },
           {
-            name: 'Linus',
-            email: 'linus.styren@ga.ntig.se',
+            name: 'Mike',
+            email: 'mikey.daddyga.ntig.se',
             password: ""
           },
           {
@@ -97,6 +103,10 @@
             value: 'name',
           },
           {
+            text: 'Teacher',
+            value:'teacher'
+          },
+          {
         
             value:'password'
               
@@ -107,10 +117,5 @@
     methods: {
       
     },
-    components: {
-        Students
-    },
-
-}
-  
+  }
 </script>
