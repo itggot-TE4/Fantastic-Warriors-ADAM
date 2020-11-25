@@ -23,14 +23,16 @@ export default new Vuex.Store({
     ],
     students: [
       {
+        id: 1,
         name: 'Dimitri',
-        email: 'dimitri.vegas@ga.ntig.se',
+        email: 'dimitri.vegas@elev.ga.ntig.se',
         teacher: 'Daniel',
         password: 'Россия'
       },
       {
+        id: 2,
         name: 'Mike',
-        email: 'mikey.daddy@ga.ntig.se',
+        email: 'mikey.daddy@elev.ga.ntig.se',
         teacher: '',
         password: 'far'
       }
@@ -39,6 +41,10 @@ export default new Vuex.Store({
   mutations: {
     updateCurrentUser (state, newUser) {
       state.currentUser = newUser
+    },
+    updateTeacher (state, payload:{id:number, newTeacher:string}):void {
+      let student:any = state.students.find(student => student.id===payload.id)
+      student.teacher = payload.newTeacher
     }
   },
   actions: {
@@ -52,6 +58,9 @@ export default new Vuex.Store({
         teachers.push(teacher.name)
       })
       return teachers
+    },
+    studentByName: (state) => (name:string) => {
+      return state.students.find(student => student.name === name)
     }
   }
 })
