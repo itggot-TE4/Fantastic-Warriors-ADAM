@@ -1,23 +1,31 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="whitesmoke"
-      light
-    >
+    <v-app-bar app color="whitesmoke" light>
       <div class="d-flex align-center">
         <span class="display-1 mr-3"> Log-o-matic</span>
-
       </div>
 
       <v-spacer></v-spacer>
 
+      <router-link to="Admin">
+        <v-btn elevation="0">
+          <v-icon>mdi-cog</v-icon>
+          <span>Admin</span>
+        </v-btn>
+      </router-link>
+
+       <router-link to="">
+        <v-btn elevation="0">
+          <v-icon>mdi-format-list-checkbox</v-icon>
+          <span>Logs</span>
+        </v-btn>
+      </router-link>
+
       <router-link to="Login">
-      <v-btn
-      >
-        <v-icon>mdi-lock-open</v-icon>
-        <span class="display-0 mr-2 col-1" >Sign in</span>
-      </v-btn>
+        <v-btn elevation="0">
+          <v-icon>mdi-lock-open</v-icon>
+          <span>Sign in</span>
+        </v-btn>
       </router-link>
     </v-app-bar>
 
@@ -28,11 +36,10 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-
+import Vue from "vue";
 
 export default Vue.extend({
-  name: 'App',
+  name: "App",
   data: () => ({
     //
   }),
@@ -40,8 +47,7 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-  a {
-    text-decoration: none;
-  }
-  
+a {
+  text-decoration: none;
+}
 </style>
