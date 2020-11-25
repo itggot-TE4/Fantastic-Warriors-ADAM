@@ -24,7 +24,7 @@
             v-model.number="item.password" label="Password"
             item-key="password">
             </v-text-field>
-            <v-btn color="blue" class="white--text rounded-0">Reset</v-btn>
+            <v-btn color="blue" class="white--text rounded-0" @click="updatePassword(item)">Reset</v-btn>
             </v-row>
         </template>
         </v-data-table>
@@ -86,7 +86,9 @@
       },
     },
     methods: {
-      
+      updatePassword (arg:any):void {
+        this.$store.commit('updateTeacherPassword', {id: arg.id, newPassword: arg.password})
+      }
     },
     components: {
         Students

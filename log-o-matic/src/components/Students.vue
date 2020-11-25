@@ -32,7 +32,7 @@
             v-model.number="item.password" label="Password"
             item-key="password">
             </v-text-field>
-            <v-btn color="blue" class="white--text rounded-0">Reset</v-btn>
+            <v-btn color="blue" class="white--text rounded-0" @click="updatePassword(item)">Reset</v-btn>
             </v-row>
         </template>
         </v-data-table>
@@ -95,8 +95,11 @@
       },
     },
     methods: {
-      updateTeacher (arg):void {
+      updateTeacher (arg:any):void {
         this.$store.commit('updateTeacher', {id: arg.id, newTeacher: arg.teacher})
+      },
+      updatePassword (arg:any):void {
+        this.$store.commit('updateStudentPassword', {id: arg.id, newPassword: arg.password})
       }
     },
   }
