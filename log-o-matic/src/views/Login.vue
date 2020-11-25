@@ -33,10 +33,10 @@
     },
     // there is 99.9% chance a better way to do this
     methods: {
-      signIn (name, password) {
+      signIn (name:string, password:string): void {
         const registeredUsers = this.$store.state.registeredUsers
         let loggedIn = false
-        registeredUsers.forEach(registeredUser => {
+        registeredUsers.forEach((registeredUser: { name: string; password: string }) => {
           // 2 checks to reduce total number of checks
           // better would be to retrieve all where (name) from database and then check length and password of result
           if (name === registeredUser.name) {
