@@ -8,9 +8,9 @@
       <v-spacer></v-spacer>
 
       <router-link to="Login">
-        <v-btn>
+        <v-btn elevation="0">
           <v-icon>mdi-lock-open</v-icon>
-          <span class="display-0 mr-2 col-1">Sign in</span>
+          <span class="btnSign">Sign in</span>
         </v-btn>
       </router-link>
     </v-app-bar>
