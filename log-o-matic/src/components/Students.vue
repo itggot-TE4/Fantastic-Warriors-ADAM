@@ -63,31 +63,9 @@
         // name: '',
         // email: '',
         // password: '',
-       teachers: [ 'Daniel', 'Fredrik', 'Linus', 'Johan'],
-
-       students: [
-          {
-            name: 'Dimitri',
-            email: 'dimitri.vegas@ga.ntig.se',
-            test: ['hej', 'abs'],
-            teacher: 'Daniel',
-            password: ''
-
-            
-            
-          },
-          {
-            name: 'Mike',
-            email: 'mikey.daddyga.ntig.se',
-            password: ""
-          },
-          {
-            name: ''
-          },
-          {
-            name: ''
-          },
-        ],
+        // teacher: ''
+      teachers: this.$store.getters.teacherNames,
+      students: this.$store.state.students
       }
     },
     computed: {

@@ -9,6 +9,32 @@ export default new Vuex.Store({
     currentUser:"",
     // substitute for backend database
     registeredUsers:[{name:"bob", password:"bygg"}],
+    teachers:[
+      {
+        name: 'Daniel',
+        email: 'daniel.berg@ga.ntig.se',
+        password: 'bananpaj',
+      },
+      {
+        name: 'Linus',
+        email: 'linus.styren@ga.ntig.se',
+        password: 'VueENajs'
+      }
+    ],
+    students: [
+      {
+        name: 'Dimitri',
+        email: 'dimitri.vegas@ga.ntig.se',
+        teacher: 'Daniel',
+        password: 'Россия'
+      },
+      {
+        name: 'Mike',
+        email: 'mikey.daddy@ga.ntig.se',
+        teacher: '',
+        password: 'far'
+      }
+    ]
   },
   mutations: {
     updateCurrentUser (state, newUser) {
@@ -18,5 +44,14 @@ export default new Vuex.Store({
   actions: {
   },
   modules: {
+  },
+  getters: {
+    teacherNames: state => {
+      let teachers: string[] = []
+      state.teachers.forEach(teacher => {
+        teachers.push(teacher.name)
+      })
+      return teachers
+    }
   }
 })
