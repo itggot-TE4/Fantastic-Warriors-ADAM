@@ -7,26 +7,33 @@
 
       <v-spacer></v-spacer>
 
-      <router-link to="Admin" v-if="isAdmin">
+      <router-link to="Admin" v-if="isAdmin()">
         <v-btn elevation="0">
           <v-icon>mdi-cog</v-icon>
           <span>Admin</span>
         </v-btn>
       </router-link>
 
-       <router-link to="">
+       <router-link to="Logs" v-if="isLoggedIn()">
         <v-btn elevation="0">
           <v-icon>mdi-format-list-checkbox</v-icon>
           <span>Logs</span>
         </v-btn>
       </router-link>
-
-      <router-link to="Login">
-        <v-btn elevation="0">
-          <v-icon>mdi-lock-open</v-icon>
-          <span>Sign in</span>
-        </v-btn>
-      </router-link>
+      <div v-if="isLoggedIn()">
+          <v-btn elevation="0" @click="logOut">
+            <v-icon>mdi-lock</v-icon>
+            <span>Sign out</span>
+          </v-btn>
+      </div>
+      <div v-else>
+        <router-link to="Login">
+          <v-btn elevation="0">
+            <v-icon>mdi-lock-open</v-icon>
+            <span>Sign in</span>
+          </v-btn>
+        </router-link>
+      </div>
     </v-app-bar>
 
     <v-main>
@@ -45,10 +52,22 @@ export default Vue.extend({
   }),
   methods: {
     isAdmin () {
-      // logic for determining adming status
-      return true
+      if (this.$store.state.currentUser.token === 'admin') {
+        return true
+      } else {
+        return false
+      }
+    },
+    isLoggedIn () {
+      if (this.$store.state.currentUser.token !== '') {
+        return true
+      } else {
+        return false
+      }
+    },
+    logOut () {
+      this.$store.commit('logOut')
     }
-
   }
 });
 </script>

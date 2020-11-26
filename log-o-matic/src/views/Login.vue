@@ -44,7 +44,7 @@
         // let loggedIn = false
         const loggedIn = registeredUsers.find(user => user.email === name || user.name === name && user.password === password)
         if (loggedIn) {
-          this.$store.commit('updateCurrentUser', name)
+          this.$store.commit('updateCurrentUser', loggedIn.permToken)
           // TODO: send to correct route
           this.$router.push('/about')
         } else {
