@@ -11,21 +11,22 @@ const vuexLocal = new VuexPersistence({
 export default new Vuex.Store({
   state: {
     // Rudimentary sign-in token (currently username)
-    currentUser:"",
+    currentUser:{token:''},
     // substitute for backend database
-    registeredUsers:[{name:"bob", password:"bygg"}],
     teachers:[
       {
         id: '8qdjhh9fw',
         name: 'Daniel',
         email: 'daniel.berg@ga.ntig.se',
         password: 'bananpaj',
+        permToken: 'teacher'
       },
       {
         id: 'mxuucbv5e',
         name: 'Linus',
         email: 'linus.styren@ga.ntig.se',
-        password: 'VueENajs'
+        password: 'VueENajs',
+        permToken: 'teacher'
       }
     ],
     students: [
@@ -34,18 +35,20 @@ export default new Vuex.Store({
         name: 'Dimitri',
         email: 'dimitri.vegas@elev.ga.ntig.se',
         teacher: 'Daniel',
-        password: 'Россия'
+        password: 'Россия',
+        permToken: 'student'
       },
       {
         id: 'w28w1qm99',
         name: 'Mike',
         email: 'mikey.daddy@elev.ga.ntig.se',
         teacher: '',
-        password: 'far'
+        password: 'far',
+        permToken: 'student'
       }
     ],
     admins: [
-      {email: "bob@byggen.bygg", name:"bob", password:"bygg"}
+      {email: "bob@byggen.bygg", name:"bob", password:"bygg", permToken: 'admin'}
     ],
     logbooks: [
       {id: 'r388n1wc69', date: 'test/bog', studentId: 'vqduhh9fn'}
@@ -56,7 +59,10 @@ export default new Vuex.Store({
   },
   mutations: {
     updateCurrentUser (state, newUser) {
-      state.currentUser = newUser
+      state.currentUser.token = newUser
+    },
+    logOut (state) {
+      state.currentUser.token = ''
     },
     updateStudentTeacher (state, payload:{id:string, newTeacher:string}):void {
       let student:any = state.students.find(student => student.id===payload.id)
@@ -77,7 +83,11 @@ export default new Vuex.Store({
       if (nameTaken || emailTaken) {
         alert('Name and/or email is already in use')
       } else {
-        state.teachers.push({id:id, name:payload.name, email:payload.email, password:payload.password})
+        state.teachers.push({id:id, 
+                              name:payload.name, 
+                              email:payload.email, 
+                              password:payload.password, 
+                              permToken:'teacher'})
       }
     },
     createStudent (state, payload: {email:string, name:string, password:string, teacher:string}):void {
@@ -91,7 +101,8 @@ export default new Vuex.Store({
                               name:payload.name, 
                               email:payload.email, 
                               teacher:payload.teacher, 
-                              password:payload.password})
+                              password:payload.password,
+                              permToken:'student'})
       }
     },
     saveComment (state, payload: { writer:string, content:string}):void {
@@ -117,6 +128,27 @@ export default new Vuex.Store({
     getLogComments: state => {
       // This gets all the comments, even if it's not from the same user!
       return state.comments;
+    users: state => {
+      let users: { email: string; name: string; password: string; permToken: string }[] = []
+      state.students.forEach(student => {
+        users.push({email:student.email, 
+                    name:student.name, 
+                    password:student.password, 
+                    permToken:student.permToken})
+      })
+      state.teachers.forEach(teacher => {
+        users.push({email:teacher.email, 
+                    name:teacher.name, 
+                    password:teacher.password, 
+                    permToken:teacher.permToken})
+      })
+      state.admins.forEach(admin => {
+        users.push({email:admin.email, 
+                    name:admin.name, 
+                    password:admin.password, 
+                    permToken:admin.permToken})
+      })
+      return users
     }
   },
   plugins: [vuexLocal.plugin]

@@ -29,6 +29,12 @@
 
 <script lang="ts">
   export default {
+    data () {
+      return {
+        name: '',
+        password: ''
+      }
+    },
     components: {
     },
     data(){
@@ -39,22 +45,15 @@
     },
     // there is 99.9% chance a better way to do this
     methods: {
-      signIn (): void {
-        const registeredUsers = this.$store.state.registeredUsers
-        let loggedIn = false
-        registeredUsers.forEach((registeredUser: { name: string; password: string }) => {
-          // 2 checks to reduce total number of checks
-          // better would be to retrieve all where (name) from database and then check length and password of result
-          if (this.name === registeredUser.name) {
-            if (this.password === registeredUser.password) {
-              loggedIn = true
-              this.$store.commit('updateCurrentUser', this.name)
-              // TODO: send to correct route
-              this.$router.push('/about')
-            }
-          } 
-        })
-        if (!loggedIn) {
+      signIn (name:string, password:string): void {
+        const registeredUsers = this.$store.getters.users
+        // let loggedIn = false
+        const loggedIn = registeredUsers.find(user => user.email === name || user.name === name && user.password === password)
+        if (loggedIn) {
+          this.$store.commit('updateCurrentUser', loggedIn.permToken)
+          // TODO: send to correct route
+          this.$router.push('/Logs')
+        } else {
           alert("incorrect username and/or password")
         }
       }
