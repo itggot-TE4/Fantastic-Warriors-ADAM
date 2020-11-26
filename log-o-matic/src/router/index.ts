@@ -37,7 +37,14 @@ const routes = [
     name:'Log',
     component: () => import('../views/Log.vue')
 
-  }
+  },
+  {
+
+    path:'/Logs',
+    name: 'Logs',
+    component: () => import('../views/Logs.vue')
+
+  },
 ]
 
 const router = new VueRouter({
