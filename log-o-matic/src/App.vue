@@ -7,7 +7,7 @@
 
       <v-spacer></v-spacer>
 
-      <router-link to="Admin">
+      <router-link to="Admin" v-if="isAdmin">
         <v-btn elevation="0">
           <v-icon>mdi-cog</v-icon>
           <span>Admin</span>
@@ -43,6 +43,13 @@ export default Vue.extend({
   data: () => ({
     //
   }),
+  methods: {
+    isAdmin () {
+      // logic for determining adming status
+      return true
+    }
+
+  }
 });
 </script>
 

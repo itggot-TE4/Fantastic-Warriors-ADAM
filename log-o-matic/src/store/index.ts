@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     // Rudimentary sign-in token (currently username)
-    currentUser:"",
+    currentUser:{token:''},
     // substitute for backend database
     teachers:[
       {

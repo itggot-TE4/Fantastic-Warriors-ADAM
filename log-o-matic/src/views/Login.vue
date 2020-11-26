@@ -29,6 +29,12 @@
 
 <script lang="ts">
   export default {
+    data () {
+      return {
+        name: '',
+        password: ''
+      }
+    },
     components: {
     },
     // there is 99.9% chance a better way to do this
@@ -38,11 +44,11 @@
         // let loggedIn = false
         const loggedIn = registeredUsers.find(user => user.email === name || user.name === name && user.password === password)
         if (loggedIn) {
-            this.$store.commit('updateCurrentUser', name)
-            // TODO: send to correct route
-            this.$router.push('/about')
-          } else {
-            alert("incorrect username and/or password")
+          this.$store.commit('updateCurrentUser', name)
+          // TODO: send to correct route
+          this.$router.push('/about')
+        } else {
+          alert("incorrect username and/or password")
         }
       }
     }  
