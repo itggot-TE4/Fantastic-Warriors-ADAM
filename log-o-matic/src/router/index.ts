@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import store from '../store/index'
 // import Login from '../views/Login.vue'
 // import { component } from 'vue/types/umd'
 
@@ -49,6 +50,23 @@ const routes = [
 
 const router = new VueRouter({
   routes
+})
+
+router.beforeEach((to, from, next) => {
+
+//   console.log(store.state.currentUser.token)
+  // console.log(to)
+//   console.log(from)
+  if (to.name !== 'Login' && to.name !=='Home' && store.state.currentUser.token === '') {
+    next({name:'Login'})
+  } else if (to.name === 'Admin' && store.state.currentUser.token !== 'Admin') {
+    next({name:from.name})
+  } else if (to.name === 'Logs' && store.state.currentUser.token === 'student') {
+    next({name:'Log'})
+  } else {
+    next()
+  }
+  
 })
 
 export default router
