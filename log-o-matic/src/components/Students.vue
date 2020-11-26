@@ -40,10 +40,15 @@
         <v-card>
         <v-card-subtitle>Add New Student</v-card-subtitle>
                 <v-row class="ma-1">
-                    <v-text-field label="Email"></v-text-field>
-                    <v-text-field label="Name"></v-text-field>
-                    <v-text-field label="Password"></v-text-field>
-                    <v-text-field label="Teacher"></v-text-field>
+                    <v-text-field label="Email" v-model="email"></v-text-field>
+                    <v-text-field label="Name" v-model="name"></v-text-field>
+                    <v-select 
+                      :items="teachers"
+                      v-model="teacher"
+                      label="Teacher"
+                    > 
+                    </v-select>
+                    <v-text-field label="Password" v-model="password"></v-text-field>
                 </v-row>
                 <v-row>
                     <v-spacer></v-spacer>
@@ -51,6 +56,10 @@
                     color="green"
                     elevation="2"
                     class="ma-2 white--text"
+                    @click="createUser({email: email,
+                                       name: name, 
+                                       teacher: teacher, 
+                                       password: password})"
                     >CREATE</v-btn>
                 </v-row>
         </v-card>     
@@ -62,12 +71,12 @@
       name: 'Students',
     data: function () {
       return {
-        // name: '',
-        // email: '',
-        // password: '',
-        // teacher: ''
-      teachers: this.$store.getters.teacherNames,
-      students: this.$store.state.students
+        name: '',
+        email: '',
+        password: '',
+        teacher: '',
+        teachers: this.$store.getters.teacherNames,
+        students: this.$store.state.students
       }
     },
     computed: {
@@ -96,10 +105,13 @@
     },
     methods: {
       updateTeacher (arg:any):void {
-        this.$store.commit('updateTeacher', {id: arg.id, newTeacher: arg.teacher})
+        this.$store.commit('updateStudentTeacher', {id: arg.id, newTeacher: arg.teacher})
       },
       updatePassword (arg:any):void {
         this.$store.commit('updateStudentPassword', {id: arg.id, newPassword: arg.password})
+      },
+      createUser (arg:any):void {
+        this.$store.commit('createStudent',{email: arg.email, name: arg.name, teacher:arg.teacher, password: arg.password})
       }
     },
   }

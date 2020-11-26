@@ -32,9 +32,9 @@
         <v-card>
         <v-card-subtitle>Add New Teacher</v-card-subtitle>
                 <v-row class="ma-1">
-                    <v-text-field label="Email"></v-text-field>
-                    <v-text-field label="Name"></v-text-field>
-                    <v-text-field label="Password"></v-text-field>
+                    <v-text-field label="Email" v-model="email"></v-text-field>
+                    <v-text-field label="Name" v-model="name"></v-text-field>
+                    <v-text-field label="Password" v-model="password"></v-text-field>
                 </v-row>
                 <v-row>
                     <v-spacer></v-spacer>
@@ -42,6 +42,7 @@
                     color="green"
                     elevation="2"
                     class="ma-2 white--text"
+                    @click="createUser({email:email, name:name, password:password})"
                     >CREATE</v-btn>
                 </v-row>
         </v-card>     
@@ -53,16 +54,15 @@
 
 <script lang="ts">
 
-    import Students from '@/components/Students.vue';
+  import Students from '@/components/Students.vue';
 
   export default {
     data () {
       return {
-        // name: '',
-        // email: '',
-        // password: ''
-        teachers: this.$store.state.teachers
-        ,
+        name: '',
+        email: '',
+        password: '',
+        teachers: this.$store.state.teachers,
       }
     },
     computed: {
@@ -88,6 +88,9 @@
     methods: {
       updatePassword (arg:any):void {
         this.$store.commit('updateTeacherPassword', {id: arg.id, newPassword: arg.password})
+      },
+      createUser (arg:any):void {
+        this.$store.commit('createTeacher',{email: arg.email, name: arg.name, password: arg.password})
       }
     },
     components: {
