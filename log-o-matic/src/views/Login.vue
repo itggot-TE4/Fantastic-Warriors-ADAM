@@ -46,7 +46,7 @@
         if (loggedIn) {
           this.$store.commit('updateCurrentUser', loggedIn.permToken)
           // TODO: send to correct route
-          this.$router.push('/about')
+          this.$router.push('/Logs')
         } else {
           alert("incorrect username and/or password")
         }

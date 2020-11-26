@@ -67,6 +67,7 @@ export default Vue.extend({
     },
     logOut () {
       this.$store.commit('logOut')
+      this.$router.push('/')
     }
   }
 });
@@ -75,5 +76,6 @@ export default Vue.extend({
 <style scoped>
 a {
   text-decoration: none;
+
 }
 </style>
