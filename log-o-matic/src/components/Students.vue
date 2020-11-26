@@ -18,9 +18,11 @@
     
         <template v-slot:item.teacher="{ item }">  
          <v-select 
-                :items="teachers"
-                v-bind:value="item.teacher"> 
-            </v-select>
+            @input="updateTeacher(item)"
+            :items="teachers"
+            v-model="item.teacher"
+            v-bind:value="item.teacher"> 
+          </v-select>
         </template>
 
         <template v-slot:[`item.password`]="{ item }">
@@ -93,7 +95,9 @@
       },
     },
     methods: {
-      
+      updateTeacher (arg):void {
+        this.$store.commit('updateTeacher', {id: arg.id, newTeacher: arg.teacher})
+      }
     },
   }
 </script>
