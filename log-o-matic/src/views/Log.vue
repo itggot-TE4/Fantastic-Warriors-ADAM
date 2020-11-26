@@ -16,27 +16,18 @@
                 <v-textarea label="Vilka frågor har du inte fått svar på?"></v-textarea>
                 <v-textarea label="Vad vill du lära dig mer om?"></v-textarea>
                 <v-timeline>
-                <v-timeline-item
-                    v-for="n in 3"
-                    :key="n"
-                    color="red lighten-2"
-                    large>
-                    <template v-slot:opposite>
-                    <span>Tus eu perfecto</span>
-                    </template>
-                    <v-card class="elevation-2">
-                    <v-card-title class="headline">
-                        Lorem ipsum
-                    </v-card-title>
-                    <v-card-text>
-                        Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet nec ut, sed euismod convenire principes at. Est et nobis iisque percipit, an vim zril disputando voluptatibus, vix an salutandi sententiae.
-                    </v-card-text>
-                    </v-card>
-                </v-timeline-item>
+                    <v-timeline-item v-for="(n, index) in getComments" :key="index" color="red lighten-2" large>
+                        <template v-slot:opposite>
+                        <span>{{n.writer}}</span>
+                        </template>
+                        <v-card class="elevation-2">
+                        <v-card-text>{{n.content}}</v-card-text>
+                        </v-card>
+                    </v-timeline-item>
                 </v-timeline>
-            <v-textarea filled label="Comment"></v-textarea>
+            <v-textarea filled label="Comment" v-model="comment"></v-textarea>
             <div class="d-flex flex-row-reverse">
-                <v-btn color="success">Send Comment</v-btn>
+                <v-btn @click="saveComment" color="success">Send Comment</v-btn>
             </div>
             </v-card>
         </v-container>
@@ -48,8 +39,23 @@
 
     export default {
         components: {
-            // LoginForum,
+            // LoginForum
+        },
+        data(){
+            return {
+                comment: ''
+            }
+        },
+        methods: {
+            saveComment() {
+                this.$store.commit("saveComment", {writer: this.$store.getters.getCurrentUser, content: this.comment})
+                console.log(this.$store.getters.getCurrentUser);
+            }
+        },
+        computed: {
+            getComments(){
+                return this.$store.state.getters.getLogComments;
+            }
         }
-        
     }
 </script>

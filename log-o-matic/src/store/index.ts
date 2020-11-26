@@ -1,7 +1,12 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
+import Vuex, { Store } from 'vuex'
+import VuexPersistence from 'vuex-persist'
 
 Vue.use(Vuex)
+
+const vuexLocal = new VuexPersistence({
+  storage: window.localStorage
+})
 
 export default new Vuex.Store({
   state: {
@@ -40,8 +45,14 @@ export default new Vuex.Store({
       }
     ],
     admins: [
-      {email: "bob@byggen.bygg",name:"bob", password:"bygg"}
-    ]
+      {email: "bob@byggen.bygg", name:"bob", password:"bygg"}
+    ],
+    logbooks: [
+      {id: 'r388n1wc69', date: 'test/bog', studentId: 'vqduhh9fn'}
+    ],
+    comments: [
+      {id: 'w28n1qm79', writer: 'bob', content: 'Jag har ju skrivit min loggbok, kan du svara eller?!', date: 'test/bog', logbookId: 'r388n1wc69'}
+    ],
   },
   mutations: {
     updateCurrentUser (state, newUser) {
@@ -82,6 +93,10 @@ export default new Vuex.Store({
                               teacher:payload.teacher, 
                               password:payload.password})
       }
+    },
+    saveComment (state, payload: { writer:string, content:string}):void {
+      const id:string = Math.random().toString(36).substr(2, 9);
+      state.comments.push({ id: id, writer: payload.writer, content: payload.content, date: `${Date.now()}`, logbookId: 'tempoMaximum'});
     }
   },
   actions: {
@@ -94,7 +109,15 @@ export default new Vuex.Store({
       state.teachers.forEach(teacher => {
         teachers.push(teacher.name)
       })
-      return teachers
+      return teachers;
+    },
+    getCurrentUser: state => {
+      return state.currentUser;
+    },
+    getLogComments: state => {
+      // This gets all the comments, even if it's not from the same user!
+      return state.comments;
     }
-  }
+  },
+  plugins: [vuexLocal.plugin]
 })
