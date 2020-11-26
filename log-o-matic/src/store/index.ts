@@ -8,7 +8,6 @@ export default new Vuex.Store({
     // Rudimentary sign-in token (currently username)
     currentUser:"",
     // substitute for backend database
-    registeredUsers:[{name:"bob", password:"bygg"}],
     teachers:[
       {
         id: '8qdjhh9fw',
@@ -95,6 +94,19 @@ export default new Vuex.Store({
         teachers.push(teacher.name)
       })
       return teachers
+    },
+    users: state => {
+      let users: { email: string; name: string; password: string }[] = []
+      state.students.forEach(student => {
+        users.push({email:student.email, name:student.name, password:student.password})
+      })
+      state.teachers.forEach(teacher => {
+        users.push({email:teacher.email, name:teacher.name, password:teacher.password})
+      })
+      state.admins.forEach(admin => {
+        users.push({email:admin.email, name:admin.name, password:admin.password})
+      })
+      return users
     }
   }
 })
