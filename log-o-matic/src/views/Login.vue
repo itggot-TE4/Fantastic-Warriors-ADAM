@@ -19,7 +19,7 @@
           <v-divider></v-divider>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="success" @click="signIn(name,password)"> Sign in </v-btn>
+            <v-btn color="success" @click="signIn()"> Sign in </v-btn>
           </v-card-actions>
         </v-card>
       </v-app>
@@ -36,6 +36,12 @@
       }
     },
     components: {
+    },
+    data(){
+      return {
+        name: '',
+        password: ''
+      }
     },
     // there is 99.9% chance a better way to do this
     methods: {
