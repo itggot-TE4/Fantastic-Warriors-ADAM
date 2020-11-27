@@ -19,7 +19,7 @@
           <v-divider></v-divider>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="success" @click="signIn()"> Sign in </v-btn>
+            <v-btn color="success" @click="signIn(name, password)"> Sign in </v-btn>
           </v-card-actions>
         </v-card>
       </v-app>
@@ -44,14 +44,14 @@
         // let loggedIn = false
         const loggedIn = registeredUsers.find((user: { email: string; name: string; password: string }) => user.email === name || user.name === name && user.password === password)
         if (loggedIn) {
-          this.$store.commit('updateCurrentUser', loggedIn.permToken)
+          this.$store.commit('updateCurrentUser', loggedIn)
           // TODO: send to correct route
           this.$router.push('/Logs')
         } else {
           alert("incorrect username and/or password")
         }
       }
-    }  
+    } 
   }
 </script>
 <style>
