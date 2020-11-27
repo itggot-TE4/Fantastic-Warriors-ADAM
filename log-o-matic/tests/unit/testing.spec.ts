@@ -1,10 +1,9 @@
 import { shallowMount } from '@vue/test-utils';
 import WelcomeText from '@/components/WelcomeText.vue';
+import login from '@/components/LoginForum.vue';
+import router from '@/router/index.ts';
 import Vue from "vue";
 import vuetify from "vuetify";
-
-import login from '@/components/LoginForum.vue'
-import router from '@/router/index.ts'
 
 Vue.use(vuetify)
 
