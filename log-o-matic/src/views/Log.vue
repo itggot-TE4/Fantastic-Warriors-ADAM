@@ -54,7 +54,8 @@
         },
         computed: {
             getComments(){
-                return this.$store.state.getters.getLogComments;
+                console.log(this.$store.getters.getComments);
+                return this.$store.getters.getComments;
             }
         }
     }

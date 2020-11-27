@@ -19,7 +19,7 @@
           <v-divider></v-divider>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="success" @click="signIn()"> Sign in </v-btn>
+            <v-btn color="success" @click="signIn(name, password)"> Sign in </v-btn>
           </v-card-actions>
         </v-card>
       </v-app>
@@ -37,27 +37,22 @@
     },
     components: {
     },
-    data(){
-      return {
-        name: '',
-        password: ''
-      }
-    },
     // there is 99.9% chance a better way to do this
     methods: {
       signIn (name:string, password:string): void {
         const registeredUsers = this.$store.getters.users
         // let loggedIn = false
-        const loggedIn = registeredUsers.find(user => user.email === name || user.name === name && user.password === password)
+        const loggedIn = registeredUsers.find((user: { email: string; name: string; password: string }) => user.email === name || user.name === name && user.password === password)
+        console.log(loggedIn)
         if (loggedIn) {
-          this.$store.commit('updateCurrentUser', loggedIn.permToken)
+          this.$store.commit('updateCurrentUser', loggedIn)
           // TODO: send to correct route
           this.$router.push('/Logs')
         } else {
           alert("incorrect username and/or password")
         }
       }
-    }  
+    } 
   }
 </script>
 <style>

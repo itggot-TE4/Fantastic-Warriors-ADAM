@@ -4,6 +4,9 @@ import VuexPersistence from 'vuex-persist'
 
 Vue.use(Vuex)
 
+// såhär rensar man localstorage! / VuexPersist
+// window.localStorage.clear();
+
 const vuexLocal = new VuexPersistence({
   storage: window.localStorage
 })
@@ -11,7 +14,7 @@ const vuexLocal = new VuexPersistence({
 export default new Vuex.Store({
   state: {
     // Rudimentary sign-in token (currently username)
-    currentUser:{token:''},
+    currentUser:{token:'', name:''},
     // substitute for backend database
     teachers:[
       {
@@ -59,7 +62,9 @@ export default new Vuex.Store({
   },
   mutations: {
     updateCurrentUser (state, newUser) {
-      state.currentUser.token = newUser
+      // console.log(newUser.permToken);
+      state.currentUser.token = newUser.permToken
+      state.currentUser.name = newUser.name
     },
     logOut (state) {
       state.currentUser.token = ''
@@ -122,12 +127,6 @@ export default new Vuex.Store({
       })
       return teachers;
     },
-    getCurrentUser: state => {
-      return state.currentUser;
-    },
-    getLogComments: state => {
-      // This gets all the comments, even if it's not from the same user!
-      return state.comments;
     users: state => {
       let users: { email: string; name: string; password: string; permToken: string }[] = []
       state.students.forEach(student => {
@@ -149,7 +148,15 @@ export default new Vuex.Store({
                     permToken:admin.permToken})
       })
       return users
-    }
+    },
+    getCurrentUser: state => {
+      return state.currentUser.name;
+    },
+    getComments: state => {
+      // This gets all the comments, even if it's not from the same user!
+      console.log(state.comments);
+      return state.comments;
+    },
   },
   plugins: [vuexLocal.plugin]
 })
