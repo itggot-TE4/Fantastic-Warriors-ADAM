@@ -5,7 +5,7 @@ import VuexPersistence from 'vuex-persist'
 Vue.use(Vuex)
 
 // såhär rensar man localstorage! / VuexPersist
-window.localStorage.clear();
+// window.localStorage.clear();
 
 const vuexLocal = new VuexPersistence({
   storage: window.localStorage
