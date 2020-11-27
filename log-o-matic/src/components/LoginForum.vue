@@ -18,7 +18,7 @@
         <v-divider></v-divider>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="success" @click="signIn"> Sign in </v-btn>
+          <v-btn color="success"> Sign in </v-btn>
         </v-card-actions>
       </v-card>
     </v-app>
