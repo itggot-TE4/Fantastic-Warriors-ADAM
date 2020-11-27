@@ -39,7 +39,29 @@ export default new Vuex.Store({
         email: 'dimitri.vegas@elev.ga.ntig.se',
         teacher: 'Daniel',
         password: 'Россия',
-        permToken: 'student'
+        permToken: 'student',
+        posts: [
+          {date: new Date(2020, 10, 23),
+            fields: {fieldOne:'måndag',fieldTwo:'',fieldThree:'',fieldFour:''},
+            comments: []
+          },
+          {date: new Date(2020, 10, 24),
+            fields: {fieldOne:'tisdag',fieldTwo:'',fieldThree:'',fieldFour:''},
+            comments: []
+         },
+          {date: new Date(2020, 10, 25),
+            fields: {fieldOne:'onsdag',fieldTwo:'',fieldThree:'',fieldFour:''},
+            comments: []
+         },
+          {date: new Date(2020, 10, 26),
+            fields: {fieldOne:'torsdag',fieldTwo:'',fieldThree:'',fieldFour:''},
+            comments: []
+         },
+          {date: new Date(2020, 10, 27),
+            fields: {fieldOne:'fredag',fieldTwo:'',fieldThree:'',fieldFour:''},
+            comments: []
+         }
+        ]
       },
       {
         id: 'w28w1qm99',
@@ -47,7 +69,29 @@ export default new Vuex.Store({
         email: 'mikey.daddy@elev.ga.ntig.se',
         teacher: '',
         password: 'far',
-        permToken: 'student'
+        permToken: 'student',
+        posts: [
+          {date: new Date(2020, 10, 23),
+            fields: {fieldOne:'måndag',fieldTwo:'',fieldThree:'',fieldFour:''},
+            comments: []
+          },
+          {date: new Date(2020, 10, 24),
+            fields: {fieldOne:'tisdag',fieldTwo:'',fieldThree:'',fieldFour:''},
+            comments: []
+         },
+          {date: new Date(2020, 10, 25),
+            fields: {fieldOne:'onsdag',fieldTwo:'',fieldThree:'',fieldFour:''},
+            comments: []
+         },
+          {date: new Date(2020, 10, 26),
+            fields: {fieldOne:'torsdag',fieldTwo:'',fieldThree:'',fieldFour:''},
+            comments: []
+         },
+          {date: new Date(2020, 10, 27),
+            fields: {fieldOne:'fredag',fieldTwo:'',fieldThree:'',fieldFour:''},
+            comments: []
+         }
+        ]
       }
     ],
     admins: [
@@ -107,7 +151,8 @@ export default new Vuex.Store({
                               email:payload.email, 
                               teacher:payload.teacher, 
                               password:payload.password,
-                              permToken:'student'})
+                              permToken:'student',
+                              posts: []})
       }
     },
     saveComment (state, payload: { writer:string, content:string}):void {
@@ -126,6 +171,16 @@ export default new Vuex.Store({
         teachers.push(teacher.name)
       })
       return teachers;
+    },
+    getCurrentUser: state => {
+      return state.currentUser;
+    },
+    getCurrentUserName: state => {
+      return state.currentUser.name;
+    },
+    getLogComments: state => {
+      // This gets all the comments, even if it's not from the same user!
+      return state.comments;
     },
     users: state => {
       let users: { email: string; name: string; password: string; permToken: string }[] = []
@@ -149,14 +204,25 @@ export default new Vuex.Store({
       })
       return users
     },
-    getCurrentUser: state => {
-      return state.currentUser.name;
-    },
     getComments: state => {
       // This gets all the comments, even if it's not from the same user!
-      console.log(state.comments);
       return state.comments;
     },
+    getPost: state => (date: any,user: any) => {
+      const student = state.students.find(student=> student.name === user)
+      if (student) {
+        return student.posts.find(post => post.date.toDateString() === date.toDateString())
+      } else {
+        alert('not a student')
+      }
+    },
+    getWeekNumber: state => (d: any) => {
+      d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()))
+      d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay()||7))
+      var yearStart: any = new Date(Date.UTC(d.getUTCFullYear(),0,1))
+      var weekNo = Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7)
+      return weekNo
+    }
   },
   plugins: [vuexLocal.plugin]
 })

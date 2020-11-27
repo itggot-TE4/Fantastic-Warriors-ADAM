@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <v-card class="mx-auto mt-8 text-center" width="25vw">
-            <h2>Week 48</h2>
+            <h2>Week {{week}}</h2>
             <h2>Lynwood Satterfield</h2>
             <div>
                 <v-icon @click="temp()">mdi-chevron-left</v-icon>
@@ -11,7 +11,7 @@
         </v-card>
         <v-container>
             <v-card class="pa-2">
-                <v-textarea label="Your answer"></v-textarea>
+                <v-textarea label="Vad har du gjort idag?"></v-textarea>
                 <v-textarea label="Vad förstod du inte?"></v-textarea>
                 <v-textarea label="Vilka frågor har du inte fått svar på?"></v-textarea>
                 <v-textarea label="Vad vill du lära dig mer om?"></v-textarea>
@@ -35,21 +35,22 @@
 </template>
 
 <script lang="ts">
-    // import LoginForum from '@/components/LoginForum.vue';
-
     export default {
+        data () {
+            const today = new Date()
+            return {
+                post: this.$store.getters.getPost(today, this.$store.getters.getCurrentUserName),
+                week: this.$store.getters.getWeekNumber(today).toString(),
+                comment: ''
+            }
+
+        },
         components: {
             // LoginForum
         },
-        data(){
-            return {
-                comment: ''
-            }
-        },
         methods: {
             saveComment() {
-                this.$store.commit("saveComment", {writer: this.$store.getters.getCurrentUser, content: this.comment})
-                console.log(this.$store.getters.getCurrentUser);
+                this.$store.commit("saveComment", {writer: this.$store.getters.getCurrentUserName, content: this.comment})
             }
         },
         computed: {

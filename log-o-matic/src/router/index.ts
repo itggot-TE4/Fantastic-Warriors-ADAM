@@ -52,7 +52,7 @@ const router = new VueRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, from: any, next) => {
 
 //   console.log(store.state.currentUser.token)
   // console.log(to)
