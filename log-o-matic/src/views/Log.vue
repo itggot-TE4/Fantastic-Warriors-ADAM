@@ -54,6 +54,7 @@
         },
         computed: {
             getComments(){
+                console.log(this.$store.getters.getComments);
                 return this.$store.getters.getComments;
             }
         }
