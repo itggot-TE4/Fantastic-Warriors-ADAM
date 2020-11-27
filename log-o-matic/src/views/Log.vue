@@ -11,7 +11,7 @@
         </v-card>
         <v-container>
             <v-card class="pa-2">
-                <v-textarea label="Your answer"></v-textarea>
+                <v-textarea label="Vad har du gjort idag?"></v-textarea>
                 <v-textarea label="Vad förstod du inte?"></v-textarea>
                 <v-textarea label="Vilka frågor har du inte fått svar på?"></v-textarea>
                 <v-textarea label="Vad vill du lära dig mer om?"></v-textarea>
@@ -38,6 +38,12 @@
     // import LoginForum from '@/components/LoginForum.vue';
 
     export default {
+        data () {
+            const today = new Date()
+            post: this.$store.getters.getPost(today, 'name')
+
+
+        },
         components: {
             // LoginForum
         },
