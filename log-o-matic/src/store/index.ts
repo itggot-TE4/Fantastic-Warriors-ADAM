@@ -5,7 +5,7 @@ import VuexPersistence from 'vuex-persist'
 Vue.use(Vuex)
 
 // såhär rensar man localstorage! / VuexPersist
-// window.localStorage.clear();
+window.localStorage.clear();
 
 const vuexLocal = new VuexPersistence({
   storage: window.localStorage
@@ -70,7 +70,28 @@ export default new Vuex.Store({
         teacher: '',
         password: 'far',
         permToken: 'student',
-        posts: []
+        posts: [
+          {date: new Date(2020, 10, 23),
+            fields: {fieldOne:'måndag',fieldTwo:'',fieldThree:'',fieldFour:''},
+            comments: []
+          },
+          {date: new Date(2020, 10, 24),
+            fields: {fieldOne:'tisdag',fieldTwo:'',fieldThree:'',fieldFour:''},
+            comments: []
+         },
+          {date: new Date(2020, 10, 25),
+            fields: {fieldOne:'onsdag',fieldTwo:'',fieldThree:'',fieldFour:''},
+            comments: []
+         },
+          {date: new Date(2020, 10, 26),
+            fields: {fieldOne:'torsdag',fieldTwo:'',fieldThree:'',fieldFour:''},
+            comments: []
+         },
+          {date: new Date(2020, 10, 27),
+            fields: {fieldOne:'fredag',fieldTwo:'',fieldThree:'',fieldFour:''},
+            comments: []
+         }
+        ]
       }
     ],
     admins: [
@@ -154,6 +175,9 @@ export default new Vuex.Store({
     getCurrentUser: state => {
       return state.currentUser;
     },
+    getCurrentUserName: state => {
+      return state.currentUser.name;
+    },
     getLogComments: state => {
       // This gets all the comments, even if it's not from the same user!
       return state.comments;
@@ -180,16 +204,17 @@ export default new Vuex.Store({
       })
       return users
     },
-    getCurrentUser: state => {
-      return state.currentUser.name;
-    },
     getComments: state => {
       // This gets all the comments, even if it's not from the same user!
-      console.log(state.comments);
       return state.comments;
     },
     getPost: state => (date: any,user: any) => {
-      const post:any = state.students[user].posts.find(post => post.date === date)
+      const student = state.students.find(student=> student.name === user)
+      if (student) {
+        return student.posts.find(post => post.date.toDateString() === date.toDateString())
+      } else {
+        alert('not a student')
+      }
     },
     getWeekNumber: state => (d: any) => {
       d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()))

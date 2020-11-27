@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <v-card class="mx-auto mt-8 text-center" width="25vw">
-            <h2>Week 48</h2>
+            <h2>Week {{week}}</h2>
             <h2>Lynwood Satterfield</h2>
             <div>
                 <v-icon @click="temp()">mdi-chevron-left</v-icon>
@@ -35,27 +35,22 @@
 </template>
 
 <script lang="ts">
-    // import LoginForum from '@/components/LoginForum.vue';
-
     export default {
         data () {
             const today = new Date()
-            post: this.$store.getters.getPost(today, 'name')
-
+            return {
+                post: this.$store.getters.getPost(today, this.$store.getters.getCurrentUserName),
+                week: this.$store.getters.getWeekNumber(today).toString(),
+                comment: ''
+            }
 
         },
         components: {
             // LoginForum
         },
-        data(){
-            return {
-                comment: ''
-            }
-        },
         methods: {
             saveComment() {
-                this.$store.commit("saveComment", {writer: this.$store.getters.getCurrentUser, content: this.comment})
-                console.log(this.$store.getters.getCurrentUser);
+                this.$store.commit("saveComment", {writer: this.$store.getters.getCurrentUserName, content: this.comment})
             }
         },
         computed: {
