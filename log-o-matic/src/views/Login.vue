@@ -37,18 +37,12 @@
     },
     components: {
     },
-    data(){
-      return {
-        name: '',
-        password: ''
-      }
-    },
     // there is 99.9% chance a better way to do this
     methods: {
       signIn (name:string, password:string): void {
         const registeredUsers = this.$store.getters.users
         // let loggedIn = false
-        const loggedIn = registeredUsers.find(user => user.email === name || user.name === name && user.password === password)
+        const loggedIn = registeredUsers.find((user: { email: string; name: string; password: string }) => user.email === name || user.name === name && user.password === password)
         if (loggedIn) {
           this.$store.commit('updateCurrentUser', loggedIn.permToken)
           // TODO: send to correct route

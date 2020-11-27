@@ -4,6 +4,9 @@ import VuexPersistence from 'vuex-persist'
 
 Vue.use(Vuex)
 
+// såhär rensar man localstorage! / VuexPersist
+// window.localStorage.clear();
+
 const vuexLocal = new VuexPersistence({
   storage: window.localStorage
 })
@@ -122,12 +125,6 @@ export default new Vuex.Store({
       })
       return teachers;
     },
-    getCurrentUser: state => {
-      return state.currentUser;
-    },
-    getLogComments: state => {
-      // This gets all the comments, even if it's not from the same user!
-      return state.comments;
     users: state => {
       let users: { email: string; name: string; password: string; permToken: string }[] = []
       state.students.forEach(student => {
@@ -149,7 +146,14 @@ export default new Vuex.Store({
                     permToken:admin.permToken})
       })
       return users
-    }
+    },
+    getCurrentUser: state => {
+      return state.currentUser;
+    },
+    getComments: state => {
+      // This gets all the comments, even if it's not from the same user!
+      return state.comments;
+    },
   },
   plugins: [vuexLocal.plugin]
 })
