@@ -1,12 +1,16 @@
-import { shallowMount } from '@vue/test-utils'
-import HelloWorld from '@/components/HelloWorld.vue'
+import { shallowMount } from '@vue/test-utils';
+import WelcomeText from '@/components/WelcomeText.vue';
+import Vue from "vue";
+import vuetify from "vuetify";
 
-describe('HelloWorld.vue', () => {
-  it('renders props.msg when passed', () => {
-    const msg = 'new message'
-    const wrapper = shallowMount(HelloWorld, {
-      propsData: { msg }
-    })
+Vue.use(vuetify)
+
+
+describe('WelcomeText.vue', () => {
+  it('renders the welcome message', () => {
+    const msg = 'Welcome to Log-O-Matic'
+    const wrapper = shallowMount(WelcomeText)
+
     expect(wrapper.text()).toMatch(msg)
   })
 })
